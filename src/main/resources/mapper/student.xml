@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vn.com.cmcglobal.dao.IStudentDao">
+    <resultMap id="StudentMapper" type="vn.com.cmcglobal.model.Student">
+        <id column="sid" property="id"/>
+        <result column="sname" property="name"/>
+        <result column="sage" property="age"/>
+        <result column="score" property="score"/>
+    </resultMap>
+
+    <insert id="insertStudent" parameterType="Student">
+        insert into student(sname, sage, score) values(#{name}, #{age}, #{score});
+    </insert>
+    <update id="updateStudent" parameterType="Student">
+        update student set sname = #{name}, sage = #{age}, score = #{score} where sid = #{id};
+    </update>
+    <delete id="deleteStudentById" parameterType="Long">
+        delete from student where sid = #{id};
+    </delete>
+
+    <select id="selectAllStudents" resultMap="StudentMapper">
+        select * from student;
+    </select>
+    <!--    <select id="getStudentById" resultType="vn.com.cmcglobal.model.Student"></select>-->
+    <select id="getStudentById" resultMap="StudentMapper" parameterType="Long">
+        select * from student where sid = #{id};
+    </select>
+</mapper>
